@@ -1,44 +1,38 @@
 package com.thealgorithms.dynamicprogramming;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AbbreviationTest {
-
+    
     @ParameterizedTest
     @MethodSource("provideTestCases")
-    public void testAbbreviation(String a, String b, boolean expected) {
+    void testAbbreviation(String a, String b, boolean expected) {
         assertEquals(expected, Abbreviation.abbr(a, b));
     }
 
     private static Stream<Arguments> provideTestCases() {
         return Stream.of(
             // Example test case from problem description
-            Arguments.of("daBcd", "ABC", Boolean.TRUE),
-
+            Arguments.of("daBcd", "ABC", true),
             // Test case where transformation is impossible
-            Arguments.of("dBcd", "ABC", Boolean.FALSE),
-
+            Arguments.of("dBcd", "ABC", false),
             // Test case with exact match (all uppercase)
-            Arguments.of("ABC", "ABC", Boolean.TRUE),
-
+            Arguments.of("ABC", "ABC", true),
             // Test case where input string contains all required letters plus extra lowercase letters
-            Arguments.of("aAbBcC", "ABC", Boolean.TRUE),
-
+            Arguments.of("aAbBcC", "ABC", true),
             // Test case with only lowercase letters in input
-            Arguments.of("abcd", "ABCD", Boolean.TRUE),
-
+            Arguments.of("abcd", "ABCD", true),
             // Test case with an empty second string (b)
-            Arguments.of("abc", "", Boolean.TRUE),
-
+            Arguments.of("abc", "", true),
             // Test case with an empty first string (a) but non-empty second string (b)
-            Arguments.of("", "A", Boolean.FALSE),
-
+            Arguments.of("", "A", false),
             // Complex case with interleaved letters
-            Arguments.of("daBcAbCd", "ABCD", Boolean.FALSE));
+            Arguments.of("daBcAbCd", "ABCD", false)
+        );
     }
 }
